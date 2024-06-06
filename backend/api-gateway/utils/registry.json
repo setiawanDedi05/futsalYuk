@@ -1,0 +1,16 @@
+{
+    "services": [
+        {
+            "route": "/auth",
+            "target": "http://localhost:4000"
+        },
+        {
+            "route": "/users",
+            "target": "http://localhost:3002"
+        },
+        {
+            "route": "/chats",
+            "target": "http://localhost:3001"
+        }
+    ]
+}
