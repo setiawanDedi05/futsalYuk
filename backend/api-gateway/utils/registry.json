@@ -11,6 +11,10 @@
         {
             "route": "/chats",
             "target": "http://localhost:3001"
+        },
+        {
+            "route": "/players",
+            "target": "http://localhost:3005"
         }
     ]
 }

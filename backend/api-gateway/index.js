@@ -14,11 +14,10 @@ app.use(cors()); // Enable CORS
 app.use(helmet()); // Add security headers
 app.use(morgan("combined")); // Log HTTP requests
 app.disable("x-powered-by"); // Hide Express server information
-
 // // Apply the rate limit and timeout middleware to the proxy
 app.use(rateLimitAndTimeout);
 
-app.use("/", routers )
+app.use("/", routers)
 // Start Express server
 app.listen(PORT, () => {
     console.log(`Gateway is running on port ${PORT}`);
