@@ -3,7 +3,9 @@
 - [x] Api Gateway
 - [x] Rate Limiter
 - [x] Connect Auth Service to Mysql
-- [ ] CRUD Player
+- [x] CRUD Player
+- [ ] Create validator
+- [ ] Create exception
 - [ ] CRUD Team
 - [ ] CRUD Gor
 - [ ] CRUD Lapangan
