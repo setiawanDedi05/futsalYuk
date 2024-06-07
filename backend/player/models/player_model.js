@@ -7,11 +7,13 @@ const PlayerSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Email is required'],
+    unique: true,
+    match: [/\S+@\S+\.\S+/, 'Email is invalid']
   },
   age: {
     type: Number,
-    required: true,
+    required: [true, "age required"],
   },
 });
 

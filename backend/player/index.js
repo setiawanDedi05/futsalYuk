@@ -2,7 +2,8 @@ const express = require("express")
 require('dotenv').config();
 const mongoose = require('mongoose');
 const axios = require("axios")
-const playerRouter = require("./routes/PlayerRoute")
+const playerRouter = require("./routes/PlayerRoute");
+const errorHandler = require("./middleware/ErrorHandler");
 const app = express()
 
 const clientOptions = { serverApi: { socketOptions: { connectTimeoutMS: 1000 }, version: '1', strict: true, deprecationErrors: true } };
@@ -10,6 +11,8 @@ const clientOptions = { serverApi: { socketOptions: { connectTimeoutMS: 1000 }, 
 app.use(express.json());
 
 app.use("/", playerRouter);
+
+app.use(errorHandler)
 
 const startServer = async () => {
     try {
