@@ -4,28 +4,20 @@ class PlayerService {
     return await playerRepository.findAll();
   }
 
-  async getPlayerById(id){
+  async getPlayerById(id) {
     return await playerRepository.findById(id);
   }
 
-  async registerPlayer(player){
+  async registerPlayer(player) {
     return await playerRepository.create(player);
   }
 
-  async updatePlayerById(id, player){
-    try {
-      return await playerRepository.update(id, player);
-    } catch (error) {
-      throw error
-    }
+  async updatePlayerById(id, player) {
+    return await playerRepository.update(id, player);
   }
 
-  async deletePlayerById(id){
-    try {
-      const result = await playerRepository.destroy(id);
-    } catch (error) {
-      throw error
-    }
+  async deletePlayerById(id) {
+    return await playerRepository.destroy(id);
   }
 }
 

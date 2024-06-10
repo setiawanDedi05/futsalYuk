@@ -6,7 +6,7 @@ class PlayerRepository {
   }
 
   async findById(id) {
-    return await Player.findById(id);
+    return await Player.findById(id).exec();
   }
 
   async create(player) {
@@ -15,20 +15,14 @@ class PlayerRepository {
   }
 
   async update(id, player) {
-    try {
-      const updatePlayer = await Player.findByIdAndUpdate(id, player, {
+    return  await Player.findByIdAndUpdate(id, player, {
         returnOriginal: false,
         runValidators: true
       })
-      return updatePlayer;
-    } catch (error) {
-      throw error
-    }
   }
 
   async destroy(id) {
-    const result = await Player.findByIdAndDelete(id).exec()
-    return result;
+    return await Player.findByIdAndDelete(id)
   }
 }
 
