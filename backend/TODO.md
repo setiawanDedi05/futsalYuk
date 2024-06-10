@@ -6,6 +6,7 @@
 - [x] CRUD Player
 - [ ] Create validator
 - [ ] Create exception
+- [ ] Login Monitoring
 - [ ] CRUD Team
 - [ ] CRUD Gor
 - [ ] CRUD Lapangan

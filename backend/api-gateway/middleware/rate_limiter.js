@@ -13,7 +13,6 @@ setInterval(() => {
 
 // Middleware function for rate limiting and timeout handling
 function rateLimitAndTimeout(req, res, next) {
-    console.log(req.ip, "ini req")
     const ip = req.ip; // Get client IP address
 
     // Update request count for the current IP

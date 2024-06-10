@@ -29,7 +29,7 @@ const authenticateToken = (req, res, next) => {
                 req.user = verifyResponse.user;
                 next();
             } else {
-                res.status(403).json({ message: `your token expired ${emoji.get(':cry:')}` });
+                res.status(403).json({ message: `token not valid ${emoji.get(':cry:')}` });
             }
         });
     });
