@@ -1,10 +1,30 @@
-// auth.js
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const router = require("./routes")
-require('dotenv').config();
-
+const jayson = require('jayson');
+const authController = require("./controllers")
 app.use(express.json())
+
+const jsonRpcMethods = {
+  register: (args, callback) => {
+    const { email, name,  password } = args;
+    authController.createUser(email, name, password, callback)
+  }
+};
+
+// Buat server JSON-RPC
+const jsonRpcServer = jayson.server(jsonRpcMethods);
+
+app.post('/rpc', (req, res) => {
+  jsonRpcServer.call(req.body, (err, response) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json(response);
+    }
+  });
+});
 
 app.use("/", router)
 

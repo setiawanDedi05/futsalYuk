@@ -30,9 +30,26 @@ router.post('/login', createProxyMiddleware({
     }
 }));
 
+router.post('/players/register', createProxyMiddleware({
+    target: 'http://localhost:3005',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/players/register': ''
+    },
+    on: {
+        proxyRes: (proxyRes, req, res) => {
+            let body = '';
+            proxyRes.on('data', (chunk) => {
+                body += chunk;
+                // const authResponse = JSON.parse(body);
+                // res.status(200).json(authResponse);
+            });
+        }
+    }
+}));
+
 //  Set up proxy middleware for each microservice
 registry.services.forEach(({ route, target }) => {
-    console.log(route)
     // Proxy options
     const proxyOptions = {
         target,

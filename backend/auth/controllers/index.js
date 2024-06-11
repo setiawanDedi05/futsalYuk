@@ -2,19 +2,34 @@ const authService = require('../services/AuthService');
 const { generateToken } = require('../utils/generateJwtToken');
 const jwt = require('jsonwebtoken');
 const { removeBearer } = require('../utils/removeBearer');
+const { encryptPassword, checkPassword } = require('../utils/bcrypt');
 const SECRET_KEY = process.env.SECRET_KEY;
 
 class AuthController {
+  async createUser(email, name, password, callback) {
+    try {
+      const hashPassword = encryptPassword(password);
+      const result = await authService.createUser(email, name, hashPassword);
+      if (result) {
+        callback(null, { success: true, message: "successfully registered" })
+      } else {
+        callback(null, { success: false, message: "Account Already Exist", errorCode: 400 })
+      }
+    } catch (error) {
+      callback(null, { success: false, message: error.message })
+    }
+  }
+
   async getUserByEmail(req, res) {
     const { email, password } = req.body;
     const user = await authService.getUserByEmail(email)
-    if (user && user.password === password) {
+    if (user && checkPassword(password, user.password)) {
       const token = generateToken(user, process.env.SECRET_KEY, {
         expiresIn: "1h"
       });
       res.json({ success: true, token });
     } else {
-      res.json({ success: false, message: 'invalid credential' });
+      res.json({ success: false, message: 'email/password not match' });
     }
   }
 

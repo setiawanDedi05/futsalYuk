@@ -34,7 +34,6 @@ app.listen(process.env.APP_PORT, async () => {
             target: `http://localhost:${process.env.APP_PORT}`
         }
     })
-    console.log(result.data)
     console.log(`I'm alive at ${process.env.APP_PORT} world`)
 }).on("error", async () => {
     const result = await axios({
@@ -46,6 +45,5 @@ app.listen(process.env.APP_PORT, async () => {
         data: {
             route: '/chats',
         }
-    })
-    console.log(result.data)
+    });
 })

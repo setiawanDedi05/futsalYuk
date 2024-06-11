@@ -1,5 +1,8 @@
 const CustomError = require("../models/custom_error")
 const playerService = require("../services/PlayerService")
+const jayson = require('jayson/promise');
+
+const authClient = jayson.client.http('http://localhost:4000/rpc');
 class PlayerController {
     async getAllPlayers(_req, res, next) {
         try {
@@ -24,9 +27,16 @@ class PlayerController {
     }
 
     async registerPlayer(req, res, next) {
+        const { email, age, name, password } = req.body;
         try {
-            const newPlayer = await playerService.registerPlayer(req.body);
-            res.status(201).json({ data: newPlayer, message: "register successfully" });
+            const response = await authClient.request('register', { email, name, password });
+            if (response.result.success) {
+                const newPlayer = await playerService.registerPlayer({ email, age, name });
+                res.status(201).json({ data: newPlayer, message: "register successfully" });
+            } else {
+                const e = new CustomError(response.result.message, 400)
+                throw e;
+            }
         } catch (error) {
             next(error)
         }

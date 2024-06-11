@@ -1,10 +1,11 @@
-const express = require("express")
 require('dotenv').config();
+const express = require("express")
 const mongoose = require('mongoose');
 const axios = require("axios")
 const playerRouter = require("./routes/PlayerRoute");
 const errorHandlerMiddleware = require("./middleware/ErrorHandler");
 const app = express()
+
 
 const clientOptions = { serverApi: { socketOptions: { connectTimeoutMS: 1000 }, version: '1', strict: true, deprecationErrors: true } };
 
@@ -29,10 +30,9 @@ const startServer = async () => {
                     target: `http://localhost:${process.env.APP_PORT}`
                 }
             })
-            console.log(result.data)
             console.log("im live at " + process.env.APP_PORT)
         }).on("error", async () => {
-            const result = await axios({
+            await axios({
                 method: 'post',
                 url: 'http://localhost:3000/unregister',
                 headers: {
@@ -42,10 +42,8 @@ const startServer = async () => {
                     route: '/players',
                 }
             })
-            console.log(result.data)
         })
     } catch (error) {
-        console.log(error)
         process.exit(1)
     }
 }
