@@ -9,7 +9,9 @@
 - [x] Create validator
 - [x] Create exception
 - [x] Login Monitoring
-- [ ] grpc when create player create to user
+- [x] when create player, register save to mongodb and db via rpc
+- [ ] when delete player, delete to mongodb and db via rpc
+- [ ] unit test
 - [ ] Cache Redis
 - [ ] docker
 - [ ] error handling with sending email
