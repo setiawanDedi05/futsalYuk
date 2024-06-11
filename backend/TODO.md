@@ -1,4 +1,4 @@
-# GRG - Go Rival Go
+# GRG - Go Rival Go BackEnd
 
 ## the application is Social Media for Futsal Lover who not have friends for playing futsal
 
