@@ -1,4 +1,6 @@
-# GRG
+# GRG - Go Rival Go
+
+## the application is Social Media for Futsal Lover who not have friends for playing futsal
 
 - [x] Api Gateway
 - [x] Rate Limiter
@@ -6,7 +8,7 @@
 - [x] CRUD Player
 - [x] Create validator
 - [x] Create exception
-- [ ] Login Monitoring
+- [x] Login Monitoring
 - [ ] grpc when create player create to user
 - [ ] Cache Redis
 - [ ] docker
