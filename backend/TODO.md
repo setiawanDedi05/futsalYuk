@@ -10,8 +10,10 @@
 - [x] Create exception
 - [x] Login Monitoring
 - [x] when create player, register save to mongodb and db via rpc
-- [ ] when delete player, delete to mongodb and db via rpc
-- [ ] create transaction on delete, register, update mongodb or mysql
+- [x] add email to jwt
+- [x] create rpc call verify jwt to get data from jwt
+- [x] when delete player, delete to mongodb and mysql via rpc
+<!-- - [ ] create transaction on delete, register, update mongodb or mysql. when one of delete/register/update data error rollback transaction -->
 - [ ] unit test
 - [ ] Cache Redis
 - [ ] docker
