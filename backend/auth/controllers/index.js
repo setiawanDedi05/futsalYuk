@@ -20,26 +20,29 @@ class AuthController {
     }
   }
 
-  async deleteUser(email, token, callback) {
-    console.log(token, "ini token")
+  async getDataFromToken(token, callback) {
     try {
-      const findedUser = await authService.getUserByEmail(email)
-      jwt.verify(token?.split(" ")[1], SECRET_KEY, (err, user) => {
+      jwt.verify(removeBearer(token), SECRET_KEY, (err, user) => {
         if (err) return callback(null, { success: false, message: err.message })
         if (Date.now() >= user.exp * 1000) {
           return callback(null, { success: false, message: "token expired" })
         }
-        if(findedUser.id === user.userId){
-          authService.deleteUser(user.userId).then((data) => {
-            console.log(data, "ini data")
-            return callback(null, { success: true, message: "successfully deleted" })
-          }).catch((error) => {
-            console.log(error, "ini error")
-            return callback(null, { success: false, message: error.message, errorCode: 404 })
-          });
-        }
-        callback(null, { success: false, message: "your token is not yours" })
+        callback(null, { success: true, data: user, message: "success get data from token" })
       });
+    } catch (error) {
+      callback(null, { success: false, message: error.message })
+    }
+  }
+
+  async deleteUser(email, token, callback) {
+    try {
+      const deletedUser = await authService.deleteUser(email)
+      if(deletedUser){
+        await authService.logout(removeBearer(token));
+        callback(null, { success: true, message: "success delete player" })
+        return
+      }
+      callback(null, { success: false, message: "player not found" })
     } catch (error) {
       callback(null, { success: false, message: error.message })
     }
