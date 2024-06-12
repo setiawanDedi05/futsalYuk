@@ -11,6 +11,7 @@
 - [x] Login Monitoring
 - [x] when create player, register save to mongodb and db via rpc
 - [ ] when delete player, delete to mongodb and db via rpc
+- [ ] create transaction on delete, register, update mongodb or mysql
 - [ ] unit test
 - [ ] Cache Redis
 - [ ] docker
