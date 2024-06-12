@@ -14,10 +14,19 @@ class AuthRepository {
         })
       }
     } catch (error) {
-      const e = new Error(error.message);
-      e.name = error.name;
-      e.code = 400;
-      throw e;
+      throw new Error(error.message);
+    }
+  }
+
+  async destroy(id) {
+    try {
+      return await prisma.user.delete({
+        where: {
+          id
+        }
+      })
+    } catch (error) {
+      throw new Error(error.message);
     }
   }
 

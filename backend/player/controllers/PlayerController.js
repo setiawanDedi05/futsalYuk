@@ -34,8 +34,7 @@ class PlayerController {
                 const newPlayer = await playerService.registerPlayer({ email, age, name });
                 res.status(201).json({ data: newPlayer, message: "register successfully" });
             } else {
-                const e = new CustomError(response.result.message, 400)
-                throw e;
+                throw new CustomError(response.result.message, 400);
             }
         } catch (error) {
             next(error)
@@ -55,13 +54,22 @@ class PlayerController {
         }
     }
 
-    async deletePlayer(req, res) {
+    async deletePlayer(req, res, next) {
+        const { authorization } = req.headers
         try {
             const deletedPlayer = await playerService.deletePlayerById(req.params.id);
-            if (deletedPlayer) res.status(200).json({ data: deletedPlayer, message: null });
-            res.status(404).json({ data: null, message: `player with id ${req.params.id} not found` });
+            if (deletedPlayer) {
+                const response = await authClient.request('delete', { email: deletedPlayer.email, token: authorization });
+                if (response.result.success) {
+                    res.status(200).json({ data: deletedPlayer, message: "Delete succesfully" });
+                } else {
+                    throw new CustomError(response.result.message, 400);
+                }
+            } else {
+                throw new CustomError(`player with id ${req.params.id} not found`, 404)
+            }
         } catch (error) {
-            res.status(500).json({ data: null, message: error.message });
+            next(error)
         }
     }
 }

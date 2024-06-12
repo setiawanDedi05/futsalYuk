@@ -8,8 +8,12 @@ app.use(express.json())
 
 const jsonRpcMethods = {
   register: (args, callback) => {
-    const { email, name,  password } = args;
+    const { email, name, password } = args;
     authController.createUser(email, name, password, callback)
+  },
+  delete: (args, callback) => {
+    const { email, token } = args;
+    authController.deleteUser(email, token, callback)
   }
 };
 
