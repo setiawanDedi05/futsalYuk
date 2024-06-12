@@ -5,8 +5,8 @@ class AuthService {
     return await authRepository.create(email, name, password);
   }
 
-  async deleteUser(id){
-    return await authRepository.destroy(id);
+  async deleteUser(email){
+    return await authRepository.destroy(email);
   }
 
   async getUserByEmail(email) {

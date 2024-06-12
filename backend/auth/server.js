@@ -11,6 +11,10 @@ const jsonRpcMethods = {
     const { email, name, password } = args;
     authController.createUser(email, name, password, callback)
   },
+  getDataFromToken: (args, callback) => {
+    const { token } = args;
+    authController.getDataFromToken(token, callback)
+  },
   delete: (args, callback) => {
     const { email, token } = args;
     authController.deleteUser(email, token, callback)

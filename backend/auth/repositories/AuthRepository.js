@@ -18,11 +18,11 @@ class AuthRepository {
     }
   }
 
-  async destroy(id) {
+  async destroy(email) {
     try {
       return await prisma.user.delete({
         where: {
-          id
+          email
         }
       })
     } catch (error) {
