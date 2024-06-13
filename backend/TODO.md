@@ -14,6 +14,7 @@
 - [x] create rpc call verify jwt to get data from jwt
 - [x] when delete player, delete to mongodb and mysql via rpc
 <!-- - [ ] create transaction on delete, register, update mongodb or mysql. when one of delete/register/update data error rollback transaction -->
+- [ ] learning unit test (create test, mocking data, etc)
 - [ ] unit test
 - [ ] Cache Redis
 - [ ] docker
