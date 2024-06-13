@@ -1,8 +1,7 @@
 const CustomError = require("../models/custom_error")
+const authClient = require("../helpers/authRpc");
 const playerService = require("../services/PlayerService")
-const jayson = require('jayson/promise');
 
-const authClient = jayson.client.http('http://localhost:4000/rpc');
 class PlayerController {
     async getAllPlayers(_req, res, next) {
         try {

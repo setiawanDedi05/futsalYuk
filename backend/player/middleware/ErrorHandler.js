@@ -1,5 +1,4 @@
 const errorHandlerMiddleware = (err, req, res, next) => {
-    console.log(err)
     switch (err.name) {
         case "MongoServerError":
             res.status(400).json({ errors: "Player Already Exist" });
