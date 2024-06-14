@@ -2,7 +2,7 @@ const { Player } = require("../models/player_model");
 
 class PlayerRepository {
   async findAll() {
-    return await Player.find({});
+    return await Player.find();
   }
 
   async findById(id) {
