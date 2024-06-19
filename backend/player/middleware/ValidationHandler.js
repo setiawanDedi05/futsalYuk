@@ -7,7 +7,9 @@ function validationHandler(req, res, next) {
         next()
     } else {
         const errorMessages = errors.array().map(error => error.msg)
-        throw new CustomError(errorMessages.join(", "), 400)
+        const error =  new Error(errorMessages.join(", "))
+        error.name = "BadRequest";
+        throw error;
     }
 }
 

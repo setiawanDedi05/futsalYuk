@@ -90,6 +90,9 @@ describe("test register player", () => {
         }
     }
 
+    const mongoServerError = new Error("Player Already Exist");
+    mongoServerError.name = "MongoServerError";
+
     
     test("should be  success create player ", async () => {
         const mockCreatePlayer = jest.fn(() => player);
@@ -261,25 +264,28 @@ describe("test register player", () => {
         const res = await request(app).post("/").send(requestValid);
 
         expect(mockCreateAuth).toHaveBeenCalledTimes(1)
-        expect(mockCreatePlayer).toHaveBeenCalledTimes(1)
+        expect(mockCreatePlayer).toHaveBeenCalledTimes(0)
         expect(res.body).toHaveProperty("errors");
-        expect(res.statusCode).toBe(400);
-        expect(res.body).toEqual({ errors: 'Account Already Exist' });
+        expect(res.statusCode).toBe(401);
+        expect(res.body).toEqual({ errors: authFailed.result.message });
     });
 
     test("should be failed while response mongoo error when create player ", async () => {
-        const mockCreatePlayer = jest.fn(() => null);
+        const error = new Error("Mongo Server Error");
         const mockCreateAuth = jest.fn(() => auth);
+        const mockCreatePlayer = jest.fn(() =>  { 
+            error.name = "MongoServerError";
+            throw error;
+        });
         
         jest.spyOn(playerService, "registerPlayer").mockImplementation(() => mockCreatePlayer())
         jest.spyOn(authClient, "request").mockImplementation(() => mockCreateAuth())
 
         const res = await request(app).post("/").send(requestValid);
-
         expect(mockCreateAuth).toHaveBeenCalledTimes(1)
         expect(mockCreatePlayer).toHaveBeenCalledTimes(1)
         expect(res.body).toHaveProperty("errors");
-        expect(res.statusCode).toBe(400);
-        expect(res.body).toEqual({ errors: 'Account Already Exist' });
+        expect(res.statusCode).toBe(500);
+        expect(res.body).toEqual({ errors: error.message });
     });
 });
