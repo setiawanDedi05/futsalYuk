@@ -1,8 +1,5 @@
 const errorHandlerMiddleware = (err, req, res, next) => {
     switch (err.name) {
-        case "MongoServerError":
-            res.status(500).json({ errors: err.message });
-            break;
         case "CastError":
             res.status(400).json({ errors: "Wrong Id" });
             break;
@@ -12,9 +9,14 @@ const errorHandlerMiddleware = (err, req, res, next) => {
         case "BadRequest":
             res.status(400).json({ errors: err.message });
             break;
+        case "Unauthorized":
+            res.status(403).json({ errors: err.message });
+            break;
+        case "MongoServerError":
         case "MongooseError":
+        case "RPCError":
         default:
-            res.status(err.code || 500).json({ errors: err.message || "Internal Server Error" });
+            res.status(500).json({ errors: "Internal Server Error" });
             break;
     };
 }

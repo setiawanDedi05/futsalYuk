@@ -1,8 +1,8 @@
-const CustomError = require("../models/custom_error");
-
 function checkRpcResult(rpcResult) {
     if(!rpcResult.result.success){
-        throw new CustomError(rpcResult.result.message, 401);
+        const error =  new Error(rpcResult.result.message);
+        error.name = "RPCError"
+        throw error;
     }
 }
 

@@ -1,7 +1,6 @@
-const CustomError = require("../models/custom_error")
-const authClient = require("../helpers/authRpc");
 const playerService = require("../services/PlayerService");
 const { checkRpcResult } = require("../helpers/checkRpcResult");
+const AuthClient = require("../models/authRpc");
 
 class PlayerController {
     async getAllPlayers(_req, res, next) {
@@ -19,7 +18,9 @@ class PlayerController {
             if (player) {
                 res.status(200).json({ data: player })
             } else {
-                throw new CustomError(`player with id ${req.params.id} not found`, 404)
+                const error =  new Error(`player with id ${req.params.id} not found`);
+                error.name = "NotFound";
+                next(error);
             }
         } catch (error) {
             next(error)
@@ -29,7 +30,7 @@ class PlayerController {
     async registerPlayer(req, res, next) {
         const { email, age, name, password } = req.body;
         try {
-            const rpcResult = await authClient.request('register', { email, name, password });
+            const rpcResult = await new AuthClient().register(email, name, password);
             checkRpcResult(rpcResult)
             const response = await playerService.registerPlayer({ email, age, name });
             res.status(201).json({ data: response, message: "register successfully" });
@@ -50,7 +51,7 @@ class PlayerController {
     async deletePlayer(req, res, next) {
         const { authorization } = req.headers
         try {
-            const rpcResult = authClient.request('delete', { email: req.dataFromMiddleware.email, token: authorization });
+            const rpcResult = await new AuthClient().delete(req.dataFromMiddleware.email, authorization);
             checkRpcResult(rpcResult);
             const deletedResponse = await playerService.deletePlayerById(req.params.id); 
             res.status(200).json({ data: deletedResponse, message: "Delete succesfully" });

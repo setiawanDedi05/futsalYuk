@@ -1,4 +1,4 @@
-const { Player } = require("../models/player_model");
+const { Player } = require("../models/playerModel");
 
 class PlayerRepository {
   async findAll() {

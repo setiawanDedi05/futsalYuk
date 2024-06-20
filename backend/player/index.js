@@ -1,20 +1,10 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
 const axios = require("axios");
 const app = require('./app');
-
-const clientOptions = { serverApi: { socketOptions: { connectTimeoutMS: 1000 }, version: '1', strict: true, deprecationErrors: true } };
-
-const connectToMongo = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URL, clientOptions)
-    } catch (error) {
-        process.exit(1)
-    }
-}
+const { dbconnect, dbclose } = require('./helpers/mongooseConnection');
 
 app.listen(process.env.APP_PORT, async () => {
-    connectToMongo()
+    dbconnect()
     await axios({
         method: 'post',
         url: 'http://localhost:3000/register',
@@ -28,6 +18,7 @@ app.listen(process.env.APP_PORT, async () => {
     })
     console.log("im live at " + process.env.APP_PORT)
 }).on("error", async () => {
+    dbclose();
     await axios({
         method: 'post',
         url: 'http://localhost:3000/unregister',

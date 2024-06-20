@@ -15,6 +15,8 @@ const PlayerSchema = new mongoose.Schema({
     type: Number,
     required: [true, "age required"],
   },
+}, {
+  versionKey: false
 });
 
 const Player = mongoose.model("Player", PlayerSchema);

@@ -1,15 +1,14 @@
-const authClient = require('../helpers/authRpc');
 const { checkRpcResult } = require('../helpers/checkRpcResult');
-const CustomError = require('../models/custom_error');
+const AuthClient = require('../models/authRpc');
 const PlayerService = require('../services/PlayerService');
 
 async function checkAuthorization(req, _res, next) {
     const { authorization } = req.headers
     try {
-        const rpcResult = await authClient.request('getDataFromToken', { token: authorization })
+        const rpcResult = await new AuthClient().getDataFromToken(authorization);
         checkRpcResult(rpcResult);
         const response = await PlayerService.getPlayerById(req.params.id);
-        if(!response) {
+        if (!response) {
             const error = new Error(`Player with id ${req.params.id} not found`);
             error.name = "NotFound"
             next(error);
@@ -18,7 +17,9 @@ async function checkAuthorization(req, _res, next) {
             req.dataFromMiddleware = response;
             next()
         } else {
-            throw new CustomError('Unauthorized', 401);
+            const error = new Error('Unauthorized');
+            error.name = "Unauthorized";
+            next(error)
         }
     } catch (error) {
         next(error)
