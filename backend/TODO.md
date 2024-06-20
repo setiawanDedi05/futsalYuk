@@ -16,6 +16,7 @@
 - [x] learning unit test (create test, mocking data, etc)
 - [x] unit test player service
 - [ ] create transaction on delete, register, update mongodb or mysql. when one of delete/register/update data error rollback transaction
+- [ ] Unit test auth
 - [ ] Cache Redis
 - [ ] docker
 - [ ] error handling with sending email
