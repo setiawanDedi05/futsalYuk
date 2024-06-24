@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin-bottom: 100vh;
+  background-color: black;
 }
 
 code {
@@ -13,12 +14,12 @@ code {
     monospace;
 }
 
-.container{
-  height: 300vh;
+.container {
+  height: 150vh;
   position: relative;
 }
 
-.sticky{
+.sticky {
   position: sticky;
   top: 0;
   height: 100vh;
@@ -26,7 +27,7 @@ code {
   overflow: hidden;
 }
 
-.el{
+.el {
   height: 100%;
   width: 100%;
   position: absolute;
@@ -36,11 +37,32 @@ code {
   align-items: center;
 }
 
-.image-container{
+.image-container {
   position: relative;
 }
 
-.img-item{
+.img-item {
   object-fit: cover;
 }
 
+.backdrop {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-Index: 2;
+  margin: 0px auto;
+}
+
+.headTitle {
+  font-family: "Lilita One", sans-serif;
+  font-size: 5em;
+}
+
+.block{
+  display: block;
+}
