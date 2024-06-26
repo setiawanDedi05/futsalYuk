@@ -27,21 +27,39 @@ export default function App() {
 
   const scale4 = useTransform(scrollYProgress, [0, 0.5], [5, 0.5])
 
+  const Main = styled.div`
+    display: flex;
+  `
+
+  // const FixedContainer = styled.div`
+  //   position:"fixed";
+  //   min-width: 550px;
+  //   right: 0;
+  // `;
+
   const Container = styled.div`
     height: 150vh;
     position: relative;
+    display: none;
+    @media ${device.laptop} {
+      display: block;
+    }
+    @media ${device.laptopL} {
+      display: block;
+      min-width: 700px;
+    }
   `;
 
   const StickyContainer = styled.div`
     position: sticky;
     top: 0;
     height: 100vh;
-    background-color: orange;
     overflow: hidden;
   `;
 
   const Backdrop = styled.div`
     color: white;
+    width: 500px;
     background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
     display: flex;
@@ -51,28 +69,25 @@ export default function App() {
     position: relative;
     z-Index: 2;
     margin: 0px auto;
+    @media ${device.laptopL} {
+      min-width: 700px;
+    }
   `;
 
   const Title = styled.h1`
     font-family: "Poppins", sans-serif;
-    font-size: 4em;
     line-height: 1.24;
     font-weight: 600;
     margin: 0;
-    @media ${device.mobileL} {
-      font-size: 2em;
-    }
+    font-size: 2em;
   `
 
   const Subtitle = styled.h2`
     font-family: "Poppins", sans-serif;
-    font-size: 2em;
     text-align: center;
     font-weight: 300;
+    font-size: 1em;
     margin: 0;
-    @media ${device.mobileL} {
-      font-size: 1em;
-    }
   `;
 
   const ImageContainer = styled.div`
@@ -93,29 +108,46 @@ export default function App() {
     align-items: center;
   `
 
+  const Footer = styled.footer`
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    background-color: rgba(54,241,133);
+     @media ${device.tablet} {
+      display: flex;
+    }
+  `;
+
 
   return (
     <>
-      <Container ref={container} >
-        <StickyContainer>
-          <Backdrop>
-            <Reveal>
-              <Title>GoRivalGo</Title>
-            </Reveal>
-            <Reveal>
-              <Subtitle>
-                Cari Teman Futsal mu dan Ayo Olahraga!
-              </Subtitle>
-            </Reveal>
-          </Backdrop>
-          <HeroContainer style={{ scale: scale4 }}>
-            <ImageContainer>
-              <ImageItem src={Picture} alt="image-hero" />
-            </ImageContainer>
-          </HeroContainer>
-        </StickyContainer>
-      </Container>
-      <AccountBox />
+      <Main>
+        <Container ref={container} >
+          <StickyContainer>
+            <Backdrop>
+              <Reveal>
+                <Title>GoRivalGo</Title>
+              </Reveal>
+              <Reveal>
+                <Subtitle>
+                  Cari Teman Futsal mu dan Ayo Olahraga!
+                </Subtitle>
+              </Reveal>
+            </Backdrop>
+            <HeroContainer style={{ scale: scale4 }}>
+              <ImageContainer>
+                <ImageItem src={Picture} alt="image-hero" />
+              </ImageContainer>
+            </HeroContainer>
+          </StickyContainer>
+        </Container>
+        <AccountBox />
+      </Main >
+      <Footer>GoRivalGo © 2024</Footer>
     </>
   );
 }

@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 export const BoxContainer = styled.div`
     width: 100%;
+    height:60vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
     font-weight: 300;
     font-family: 'Poppins', sans-serif;
-    color: rgb(54,241,133);
+    color: rgb(54,241,133)
 `
 
 export const FormContainer = styled.form`
@@ -30,6 +31,7 @@ export const BoldLink = styled.a`
     font-weight: 600;
     text-decoration: none;
     color: rgb(54,241,133);
+    margin: 0 5px;
 `;
 
 export const Input = styled.input`
@@ -75,3 +77,8 @@ export const SubmitButton = styled.button`
         filter: brightness(1.03);
     }
 `;
+
+export enum AccountPage {
+    SIGNIN = 'signin',
+    SIGNUP = 'signup'
+}

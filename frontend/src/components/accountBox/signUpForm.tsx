@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { Spacer } from "../../uikit/spacer";
-import { BoxContainer, FormContainer, Input, MutedLink, SubmitButton } from "./common";
+import { BoldLink, BoxContainer, FormContainer, Input, SubmitButton } from "./common";
+import { AccountContext } from "./accountContext";
 
 export function SignUpForm() {
+    const { switchToSignIn } = useContext(AccountContext) || { switchToSingIn: () => { } }
     return <BoxContainer>
         <FormContainer>
             <Input type="text" placeholder="Full Name" />
@@ -11,5 +14,7 @@ export function SignUpForm() {
         </FormContainer>
         <Spacer height="1.3em" />
         <SubmitButton type="submit">Sign Up</SubmitButton>
+        <Spacer height="1.3em" />
+        <p>Udah Punya akun ya?<BoldLink onClick={switchToSignIn}>gas Login!</BoldLink></p>
     </BoxContainer>
 }

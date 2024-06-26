@@ -49,7 +49,7 @@ export const Reveal = ({ children, width = "fix-content" }: Props) => {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    backgroundColor: "rgba(255,0,0,1)",
+                    backgroundColor: "rgb(54,241,133)",
                     zIndex: 5,
                 }}
             />
