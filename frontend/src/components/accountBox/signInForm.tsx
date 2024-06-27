@@ -4,12 +4,11 @@ import { BoldLink, BoxContainer, FieldsError, FormContainer, Input, MutedLink, S
 import { AccountContext } from "./accountContext";
 import { useForm } from "react-hook-form";
 import authService from "../../services/authService";
-import axios, { AxiosError } from "axios";
-import { error } from "console";
-
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function SignInForm() {
+    let navigate = useNavigate();
     const { switchToSignUp } = useContext(AccountContext) || { switchToSingUp: () => { } }
     const [message, setMessage] = useState("");
     const {
@@ -24,7 +23,7 @@ export function SignInForm() {
                 email: data.email,
                 password: data.password
             });
-            setMessage("login success");
+            navigate("/home");
         } catch (error) {
             if(axios.isAxiosError(error)){
                 setMessage(error.response?.data.message)
