@@ -30,13 +30,6 @@ export default function App() {
   const Main = styled.div`
     display: flex;
   `
-
-  // const FixedContainer = styled.div`
-  //   position:"fixed";
-  //   min-width: 550px;
-  //   right: 0;
-  // `;
-
   const Container = styled.div`
     height: 150vh;
     position: relative;
@@ -80,6 +73,9 @@ export default function App() {
     font-weight: 600;
     margin: 0;
     font-size: 2em;
+    @media ${device.laptopL} {
+      font-size: 5em;
+    }
   `
 
   const Subtitle = styled.h2`

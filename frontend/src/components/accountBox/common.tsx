@@ -16,7 +16,6 @@ export const FormContainer = styled.form`
     width: 100%;
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 0px 2.5px rgba(255,255,255, 0.5);
 `
 
 export const MutedLink = styled.a`
@@ -82,3 +81,7 @@ export enum AccountPage {
     SIGNIN = 'signin',
     SIGNUP = 'signup'
 }
+
+export const FieldsError = styled.p`
+    color: red;
+`
