@@ -16,7 +16,7 @@ class AuthController {
         callback(null, { success: false, message: "Account Already Exist", errorCode: 400 })
       }
     } catch (error) {
-      callback(null, { success: false, message: error.message })
+      callback(null, { success: false, message: error.message, errorCode: 500 })
     }
   }
 

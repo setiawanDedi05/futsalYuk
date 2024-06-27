@@ -1,4 +1,5 @@
 const errorHandlerMiddleware = (err, req, res, next) => {
+    console.log(err.name);
     switch (err.name) {
         case "CastError":
             res.status(400).json({ errors: "Wrong Id" });
