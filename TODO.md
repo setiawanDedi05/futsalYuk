@@ -7,7 +7,7 @@
 - [x] Create Sign Up
 - [x] Create Sign In
 - [ ] Make Logo GRG
-- [ ] Integration sign in
+- [x] Integration sign in
 - [ ] Integration sign up
 - [ ] Create Profile Page
 - [ ] Create Chat Page
