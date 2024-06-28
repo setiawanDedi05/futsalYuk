@@ -10,7 +10,7 @@ export const BoxContainer = styled.div`
     margin-top: 10px;
     font-weight: 300;
     font-family: 'Poppins', sans-serif;
-    color: ${color.primary}
+    color: ${color.primary};
 `
 
 export const FormContainer = styled.form`

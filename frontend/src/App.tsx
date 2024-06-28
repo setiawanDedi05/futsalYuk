@@ -4,10 +4,12 @@ import HomePage from "./pages/secure/home";
 
 const routers = createBrowserRouter([
   {
+    id: "root",
     path: "/",
     element: <Landing />,
   },
   {
+    id: "homepage",
     path: "/home",
     element: <HomePage />,
   }

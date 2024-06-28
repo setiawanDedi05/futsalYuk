@@ -6,13 +6,14 @@ import { AccountContext } from "./accountContext";
 import { AccountPage } from "./common";
 import { SignUpForm } from "./signUpForm";
 import { device } from "../../config/constants";
+import * as color from "../../config/color";
 
 const BoxContainer = styled.div`
     width: 100%;
     min-height: 550px;
     display: flex;
     flex-direction: column;
-    background-color: #191A19;
+    background-color: ${color.secondary};
     position: relative;
     overflow: hidden;
      @media ${device.tablet}  {
