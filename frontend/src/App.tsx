@@ -6,6 +6,7 @@ const routers = createBrowserRouter([
   {
     id: "root",
     path: "/",
+    index: true,
     element: <Landing />,
   },
   {
