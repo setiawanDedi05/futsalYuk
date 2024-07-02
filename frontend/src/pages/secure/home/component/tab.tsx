@@ -23,7 +23,8 @@ const BottomTabContainer = styled.div`
         width: 100px;
         display: flex;
         flex-wrap: nowrap;
-        height: 100vh;
+        min-height: 100vh;
+        height: 100%;
         top: 0;
         left: 0;
         position: fixed;
