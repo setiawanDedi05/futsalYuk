@@ -14,10 +14,9 @@ const Container = styled.div`
     height: auto;
     display: flex;
     flex-direction: column;
-    position: relative;
+    position: relative;;
     @media ${device.tablet} {
         display: flex;
-        flex-direction: row;
         position: relative;
     }
 `
@@ -34,6 +33,7 @@ const ContainerBg = styled.div`
     right: 0;
     opacity: .6;
     width: 100%;
+    min-height: 100vh;
     height: 100%;
     @media ${device.tablet} {
         position: fixed;
@@ -47,7 +47,7 @@ const TopContainer = styled.div`
     top: 0;
     width: 100%;
     height: 5vh;
-    background-color: ${color.primary};
+    background-color: ${color.green};
     display: flex;
     padding: 10px 20px;
     justify-content: space-between;
@@ -62,13 +62,15 @@ const TopTitle = styled.div`
     font-size: 0.9rem;
 `
 
-const FriendContainer = styled.div`
+const MessageContainer = styled.div`
     display: none;
+    transition: all 1s;
     @media ${device.tablet} {
         display: block;
-        background-color: ${color.green};
+        background-color: ${color.light};
         height: 100%;
-        width: 300px;
+        min-width: 250px;
+        width: 30%;
         position: fixed;
         left: 85px;
         float: left;
@@ -79,7 +81,7 @@ const FriendContainer = styled.div`
 
     @media ${device.laptop} {
         display: block;
-        background-color: ${color.green};
+        background-color: ${color.light};
         height: 100%;
         width: 350px;
         position: fixed;
@@ -91,7 +93,7 @@ const FriendContainer = styled.div`
     }
 `
 
-const FriendActionContainer = styled.div`
+const MessageActionContainer = styled.div`
     margin-top: 50px;
     display: flex;
     justify-content: space-evenly;
@@ -100,17 +102,19 @@ const FriendActionContainer = styled.div`
     border-bottom: 2px dashed ${color.gray};
 `
 
-const FriendInputSearchContainer = styled.form`
+const MessageInputSearchContainer = styled.form`
     display: flex;
     border-radius: 2px;
     padding: 8px 16px;
     background-color: ${color.white};
+    width: 200px;
     border: 2px solid;
     gap: 20px;
     align-items: center;
 `
 
-const FriendInputSearch = styled.input`
+const MessageInputSearch = styled.input`
+    width: 130px;
     background-color: ${color.white};
     border: none;
     outline: none;
@@ -119,7 +123,7 @@ const FriendInputSearch = styled.input`
     font-weight: 500;
 `
 
-const FriendContentContainer = styled.div`
+const MessageContentContainer = styled.div`
     display: flex;
     flex-direction: column;
     >:not(:last-child){
@@ -127,7 +131,7 @@ const FriendContentContainer = styled.div`
     }
 `
 
-const FriendItem = styled.div`
+const MessageItem = styled.div`
     display: flex;
     padding: 30px 20px;
     width: 100%;
@@ -256,7 +260,7 @@ const BottomTabContainer = styled.div`
     flex-wrap: wrap;
     bottom: 0;
     left: 0;
-    background-color: ${color.primary};
+    background-color: ${color.lightOpacity};
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -278,17 +282,19 @@ const BottomTabContainer = styled.div`
 `
 
 const TabItem = styled.div`
-    width: 25%;
-    height: 100%;
+    width: 20%;
+    height: 60%;
     color: ${color.secondary};
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
     
     &:hover{
         border-left: none;
-        border-bottom: 2px solid ${color.secondary};
         color: ${color.white};
+        border-radius: 50px;
+        background-color: ${color.green};
     }
     
     @media ${device.tablet} {
@@ -298,6 +304,7 @@ const TabItem = styled.div`
             margin-right: 15px;
         }
         &:hover{
+            border-radius: 0%;
             border-bottom: none;
             border-left: 2px solid ${color.secondary};
             color: ${color.white};
@@ -305,13 +312,83 @@ const TabItem = styled.div`
     }
 `
 
+const FriendContainer = styled.div`
+    margin: 7vh 1vw;
+    padding: 10px 20px;
+    margin-bottom: 10vh;
+    display: flex;
+    flex-direction: column;
+    background-color: ${color.light};
+    transition: all 1s;
+    @media ${device.tablet} {
+        margin-top: 2vh;
+        width: 53.5%;
+        position: relative;
+        margin-left:auto;
+        overflow: scroll;
+    }
+    @media ${device.laptop} {
+        width: 55%;
+        position: relative;
+    }
+`
+
+const FriendKind = styled.span`
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+`
+const FriendListContainer = styled.div`
+    display: flex;
+    background-color: ${color.lightOpacity};
+    padding: 10px;
+    justify-content: start;
+    align-items: center;
+    border-radius: 20px;
+    gap: 20px;
+    >:last-child{
+        margin-left: auto;
+    }
+`
+
+const FriendListAvatar = styled.img`
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+`
+
+const FriendListAccountContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const FriendName = styled.span`
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+`
+
+const FriendEmail = styled.span`
+    font-size: .8em;
+    font-family: 'Poppins', sans-serif;
+    color: ${color.gray};
+`
+
+const FriendMessageButton = styled.button`
+    border-radius: 16px;
+    background-color: ${color.light};
+    padding: 5px 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+`
+
 export default function HomePage() {
     const [activeTab, setactiveTab] = useState<string | null | undefined>("home");
 
     const handleMouseEnter = (tabName?: string) => {
-        setactiveTab(tabName);
-    }
-    const handleMouseLeave = (tabName?: string) => {
         setactiveTab(tabName);
     }
 
@@ -363,6 +440,103 @@ export default function HomePage() {
         },
     ];
 
+    const friendDummy = {
+        following: [
+            {
+                id: 1,
+                name: "Dedi Setiawan",
+                avatar: "https://i.pravatar.cc/100",
+                place: "Tokyo",
+                time: "1 Min ago",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+            {
+                id: 2,
+                name: "Puzha Fauzha",
+                time: "1 hour ago",
+                place: "Germany",
+                avatar: "https://i.pravatar.cc/100",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+            {
+                id: 3,
+                name: "Ibnu Malik",
+                avatar: "https://i.pravatar.cc/100",
+                time: "1 hour ago",
+                place: "Japan",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+            {
+                id: 4,
+                avatar: "https://i.pravatar.cc/100",
+                name: "Arif Ibrahim",
+                time: "1 hour ago",
+                place: "Arab",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+            {
+                id: 5,
+                avatar: "https://i.pravatar.cc/100",
+                name: "Anwar Sanusi",
+                time: "1 hour ago",
+                place: "Arab",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+        ],
+        follower: [
+            {
+                id: 1,
+                name: "Dedi Setiawan",
+                avatar: "https://i.pravatar.cc/100",
+                place: "Tokyo",
+                time: "1 Min ago",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+            {
+                id: 2,
+                name: "Puzha Fauzha",
+                time: "1 hour ago",
+                place: "Germany",
+                avatar: "https://i.pravatar.cc/100",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+            {
+                id: 3,
+                name: "Ibnu Malik",
+                avatar: "https://i.pravatar.cc/100",
+                time: "1 hour ago",
+                place: "Japan",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+            {
+                id: 4,
+                avatar: "https://i.pravatar.cc/100",
+                name: "Arif Ibrahim",
+                time: "1 hour ago",
+                place: "Arab",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+            {
+                id: 5,
+                avatar: "https://i.pravatar.cc/100",
+                name: "Anwar Sanusi",
+                time: "1 hour ago",
+                place: "Arab",
+                image: "https://picsum.photos/500/200",
+                caption: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, amet reiciendis expedita quia, animi consectetur dolores inventore nobis ab sint odio! Facilis molestiae hic facere quas nesciunt, ducimus libero amet!"
+            },
+        ]
+    }
+
     return <>
         <Container>
             <ContainerBg />
@@ -370,29 +544,29 @@ export default function HomePage() {
                 <TopTitle>GoRivalGo</TopTitle>
                 <FontAwesomeIcon id="message" icon={faMessage} color={color.secondary} />
             </TopContainer>
-            <FriendContainer>
-                <FriendActionContainer>
-                    <FriendInputSearchContainer>
+            <MessageContainer>
+                <MessageActionContainer>
+                    <MessageInputSearchContainer>
                         <FontAwesomeIcon icon={faSearch} size="xl" />
-                        <FriendInputSearch />
-                    </FriendInputSearchContainer>
+                        <MessageInputSearch />
+                    </MessageInputSearchContainer>
                     <FontAwesomeIcon icon={faUserPlus} size="xl" />
-                </FriendActionContainer>
-                <FriendContentContainer>
+                </MessageActionContainer>
+                <MessageContentContainer>
                     {
                         postDummy.map(({ id, name, avatar }: IPost) => {
-                            return <FriendItem key={id}>
+                            return <MessageItem key={id}>
                                 <PostAuthorAvatar src={avatar} alt={`${id}-avatar`} />
                                 <PostAuthorNameContainer>
                                     <PostAuthorName>{name}</PostAuthorName>
                                     <PostCaption>Lorem ipsum dolor sit.</PostCaption>
                                 </PostAuthorNameContainer>
-                            </FriendItem>
+                            </MessageItem>
                         })
                     }
-                </FriendContentContainer>
-            </FriendContainer>
-            <PostContainer>
+                </MessageContentContainer>
+            </MessageContainer>
+            {activeTab === 'home' && <PostContainer>
                 {
                     postDummy.map(({ id, image, name, time, place, caption, avatar }: IPost) => {
                         return <PostItem key={id} id={`${id}-post`}>
@@ -420,26 +594,50 @@ export default function HomePage() {
                     })
                 }
             </PostContainer>
+            }
+            {activeTab === 'friend' && <FriendContainer> {
+                Object.entries(friendDummy).map(([key, content]) => {
+                    return <div key={key}>
+                        <FriendKind>{key}</FriendKind>
+                        {
+                            content.map(({ id, name, avatar, place }: IPost) => {
+                                return <FriendListContainer key={`${id}-friend`}>
+                                    <FriendListAvatar src={avatar} alt="avatar" />
+                                    <FriendListAccountContainer>
+                                        <FriendName>{name}</FriendName>
+                                        <FriendEmail>{place}</FriendEmail>
+                                    </FriendListAccountContainer>
+                                    <FriendMessageButton><span>Send Message</span></FriendMessageButton>
+                                </FriendListContainer>
+                            })
+                        }
+                    </div>
+                })
+            }
+            </FriendContainer>
+            }
         </Container>
         <BottomTabContainer>
-            <TabItem id="home" onPointerLeave={() => handleMouseLeave()} onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleMouseEnter("home")} onPointerEnter={() => handleMouseEnter("home")}>
+            <TabItem id="home" onClick={() => handleMouseEnter("home")} >
                 <motion.div animate={{ rotate: activeTab === 'home' ? [30, 0] : 0 }} transition={{ type: "spring" }}>
                     <FontAwesomeIcon icon={faHouse} />
                 </motion.div>
             </TabItem>
-            <TabItem id="friend" onPointerLeave={() => handleMouseLeave()} onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleMouseEnter("friend")} onPointerEnter={() => handleMouseEnter("friend")}>
+            <TabItem id="friend" onClick={() => handleMouseEnter("friend")} >
                 <motion.div animate={{ rotate: activeTab === 'friend' ? [30, 0] : 0 }} transition={{ type: "spring" }}>
                     <FontAwesomeIcon icon={faUserGroup} />
                 </motion.div>
             </TabItem>
-            <TabItem id="play" onPointerLeave={() => handleMouseLeave()} onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleMouseEnter("play")} onPointerEnter={() => handleMouseEnter("play")}>
+            <TabItem id="play" onClick={() => handleMouseEnter("play")}>
                 <motion.div animate={{ rotate: activeTab === 'play' ? [30, 0] : 0 }} transition={{ type: "spring" }}>
                     <FontAwesomeIcon icon={faPlay} />
-                </motion.div></TabItem>
-            <TabItem id="config" onPointerLeave={() => handleMouseLeave()} onMouseLeave={() => handleMouseLeave()} onMouseEnter={() => handleMouseEnter("profile")} onPointerEnter={() => handleMouseEnter("profile")}>
+                </motion.div>
+            </TabItem>
+            <TabItem id="config" onClick={() => handleMouseEnter("profile")}>
                 <motion.div animate={{ rotate: activeTab === 'profile' ? [30, 0] : 0 }} transition={{ type: "spring" }}>
                     <FontAwesomeIcon icon={faGear} />
-                </motion.div></TabItem>
+                </motion.div>
+            </TabItem>
         </BottomTabContainer>
     </>
 }
