@@ -7,7 +7,7 @@ import TabComponent from "./component/tab";
 
 const Container = styled.div`
     width: 100%;
-    height: auto;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;;
@@ -19,12 +19,26 @@ const Container = styled.div`
     }
 `
 
+const ContentContainer = styled.div`
+    margin-top: 6vh;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10vh;
+    @media ${device.tablet} {
+        width: 80%;
+        margin-top: 0;
+        margin: 0 auto;
+    }
+`
+
 export default function HomePage() {
     return <>
         <Container>
             <TopComponent />
-            <MessageComponent />           
-            <Outlet/>
+            <MessageComponent /> 
+            <ContentContainer>
+                <Outlet/>
+            </ContentContainer>          
         </Container>
        <TabComponent/>
     </>

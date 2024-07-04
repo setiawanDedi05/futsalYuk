@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
-import * as color from '../../../../config/color';
+import * as color from '../../../../../config/color';
 
 const TabContainer = styled.div`
   display: flex;

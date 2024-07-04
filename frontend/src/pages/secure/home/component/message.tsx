@@ -59,22 +59,10 @@ const MessageContainer = styled.div`
     @media ${device.tablet} {
         display: block;
         background-color: ${color.light};
+        box-shadow: 2px 0 5px -2px #888;
         height: 100%;
         min-width: 250px;
         width: 30%;
-        position: fixed;
-        left: 85px;
-        float: left;
-        border-top-left-radius: 16px;
-        border-bottom-left-radius: 16px;
-        z-index: 1;
-    }
-
-    @media ${device.laptop} {
-        display: block;
-        background-color: ${color.light};
-        height: 100%;
-        width: 350px;
         position: fixed;
         left: 85px;
         float: left;

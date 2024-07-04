@@ -1,30 +1,15 @@
 import styled from "styled-components"
 import * as color from '../../../config/color';
-import Tab, { TabItem } from "./tab";
-import { device } from "../../../config/constants";
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height:100%;
-    min-height: 80vh;
-    justify-content: center;
-    align-items: center;
-    @media ${device.tablet} {
-        display: flex;
-        position: relative;
-        right: 0;
-    }
-
-`
+import Tab, { TabItem } from "./components/tab";
+import { useState } from "react";
+import TabContent from "./components/tabContent";
 
 const AccountContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 8vh;
+    margin-top: 5vh;
 `
 
 const Avatar = styled.img`
@@ -47,14 +32,13 @@ const ContentContainer = styled.div`
     display: flex;
     width: 100%;
     height:100%;
-    min-height: 40vh;
     background-color: ${color.light};
     flex-direction: column;
     margin: auto;
 `
 
 const BioContainer = styled.div`
-    width: 80%;
+    width: 100%;
     height: 100%;
     background-color: ${color.lightOpacity};
 `
@@ -72,7 +56,7 @@ const Bio = styled.blockquote`
 
 const DetailContainer = styled.div`
     display: flex;
-    width: 80%;
+    width: 100%;
     background-color: ${color.light};
     gap: 10px;
     justify-content: center;
@@ -104,10 +88,11 @@ const DetailTag = styled.span`
 `
 
 export default function ConfigPage() {
-
+    const [active, setActive] = useState<number>(0)
     const onTabSelected = (index: any) => {
+        setActive(index)
     };
-    return <Container>
+    return <>
         <AccountContainer>
             <Avatar src="https://avatars.githubusercontent.com/u/100000000?v=4" />
             <AccountName>John Doe</AccountName>
@@ -137,5 +122,6 @@ export default function ConfigPage() {
                 <TabItem>Following</TabItem>
             </Tab>
         </ContentContainer>
-    </Container>
+        <TabContent index={active} />
+    </>
 }

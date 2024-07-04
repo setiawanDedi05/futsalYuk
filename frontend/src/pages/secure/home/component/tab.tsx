@@ -8,30 +8,29 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 const BottomTabContainer = styled.div`
-    display: flex;
     width: 100%;
     height: 8vh;
     position: fixed;
-    flex-wrap: wrap;
     bottom: 0;
     left: 0;
-    background-color: ${color.lightOpacity};
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    overflow: hidden;
+    background-color: ${color.lightOpacity};
     
     @media ${device.tablet} {
         width: 100px;
-        display: flex;
-        flex-wrap: nowrap;
-        min-height: 100vh;
-        height: 100%;
+        height: 100vh;
+        position: fixed;
         top: 0;
         left: 0;
-        position: fixed;
+        display: flex;
+        flex-wrap: nowrap;
         flex-direction: column;
         justify-content: start;
         align-items: start;
+        overflow: visible;
         >:last-child{
             margin-top: auto;
         }

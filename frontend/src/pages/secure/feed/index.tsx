@@ -1,32 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import * as color  from "../../../config/color";
 import styled from "styled-components"
-import { device } from "../../../config/constants"
 import { IPost } from "../../../services/dto/post"
 import { faBookmark as faBookmarkOutline, faComment as faCommentOutline, faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons"
-
-const PostContainer = styled.div`
-    margin-top: 6vh;
-    padding: 10px 20px;
-    gap: 2vh;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10vh;
-    @media ${device.tablet} {
-        width: 50%;
-        position: absolute;
-        right: 0;
-        float: left;
-        margin-top: 0;
-    }
-    @media ${device.laptop} {
-        width: 50%;
-        position: absolute;
-        right: 3em;
-        float: left;
-        margin-top: 0;
-    }
-`
 
 const PostItem = styled.div`
     width: 100%;
@@ -167,7 +143,7 @@ const postDummy = [
 ];
 
 export default function FeedPage() {
-    return <PostContainer>
+    return <>
         {
             postDummy.map(({ id, image, name, time, place, caption, avatar }: IPost) => {
                 return <PostItem key={id} id={`${id}-post`}>
@@ -194,5 +170,5 @@ export default function FeedPage() {
                 </PostItem>
             })
         }
-    </PostContainer>
+    </>
 }
