@@ -2,9 +2,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Landing from "./pages/public/landing";
 import HomePage from "./pages/secure/home";
 import FeedPage from "./pages/secure/feed";
-import FriendPage from "./pages/secure/friend";
 import CustomeErrorBounderies from "./pages/public/error";
 import PlayPage from "./pages/secure/play";
+import ConfigPage from "./pages/secure/profile";
 
 const routers = createBrowserRouter([
   {
@@ -21,20 +21,20 @@ const routers = createBrowserRouter([
     children:[
       {
         id: "feed",
-        path: "home",
+        path: "",
+        index: true,
         element: <FeedPage />
-      },
-      {
-        id: "friend",
-        path: "friend",
-        element: <FriendPage />
       },
       {
         id: "play",
         path: "play",
         element: <PlayPage />
       },
-
+      {
+        id: "profile",
+        path: "profile",
+        element: <ConfigPage/>
+      }
     ]
   }
 ])

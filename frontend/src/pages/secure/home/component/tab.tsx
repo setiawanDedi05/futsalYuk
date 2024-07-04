@@ -1,4 +1,4 @@
-import { faHouse, faUserGroup, faPlay, faGear } from "@fortawesome/free-solid-svg-icons"
+import { faHouse, faPlay, faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { motion } from "framer-motion"
 import styled from "styled-components"
@@ -16,9 +16,10 @@ const BottomTabContainer = styled.div`
     bottom: 0;
     left: 0;
     background-color: ${color.lightOpacity};
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     overflow: hidden;
+    
     @media ${device.tablet} {
         width: 100px;
         display: flex;
@@ -74,17 +75,13 @@ export default function TabComponent() {
 
     const handleMouseEnter = (tabName?: string) => {
         setactiveTab(tabName);
-        navigate(tabName!)
+        const path = tabName === 'home' ? '' : tabName;
+        navigate(path!)
     }
     return <BottomTabContainer>
         <TabItem id="home" onClick={() => handleMouseEnter("home")} >
             <motion.div animate={{ rotate: activeTab === 'home' ? [30, 0] : 0 }} transition={{ type: "spring" }}>
                 <FontAwesomeIcon icon={faHouse} />
-            </motion.div>
-        </TabItem>
-        <TabItem id="friend" onClick={() => handleMouseEnter("friend")} >
-            <motion.div animate={{ rotate: activeTab === 'friend' ? [30, 0] : 0 }} transition={{ type: "spring" }}>
-                <FontAwesomeIcon icon={faUserGroup} />
             </motion.div>
         </TabItem>
         <TabItem id="play" onClick={() => handleMouseEnter("play")}>
@@ -94,7 +91,7 @@ export default function TabComponent() {
         </TabItem>
         <TabItem id="config" onClick={() => handleMouseEnter("profile")}>
             <motion.div animate={{ rotate: activeTab === 'profile' ? [30, 0] : 0 }} transition={{ type: "spring" }}>
-                <FontAwesomeIcon icon={faGear} />
+                <FontAwesomeIcon icon={faUser} />
             </motion.div>
         </TabItem>
     </BottomTabContainer>

@@ -12,7 +12,6 @@ const Container = styled.div`
     flex-direction: column;
     gap: 20px;
     overflow-x: scroll;
-    scrollbar-track-color: aliceblue;
 `
 
 const FieldContainer = styled.div`
