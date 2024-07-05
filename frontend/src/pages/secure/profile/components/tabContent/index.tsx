@@ -1,5 +1,5 @@
-import FollowingTabContent from "../follower";
-import FollowerTabContent from "../following";
+import FollowingTabContent from "../following";
+import FollowerTabContent from "../follower";
 import PostTabContent from "../post";
 
 const TabContent = (props: any) => {

@@ -21,13 +21,12 @@ const TabItems = styled.div`
 
 const Tab = ({ children, onTabSelected }: any) => {
     const [itemId, setItemId] = useState(0);
-
     useEffect(() => {
         onTabSelected && onTabSelected(itemId);
     }, [itemId, onTabSelected]);
 
     return (
-        <TabContainer>
+        <TabContainer id="tab">
             {React.Children.map(children, (child, index) => {
                 return React.cloneElement(child, {
                     onClick: () => {

@@ -31,7 +31,6 @@ const AccountEmail = styled.span`
 const ContentContainer = styled.div`
     display: flex;
     width: 100%;
-    height:100%;
     background-color: ${color.light};
     flex-direction: column;
     margin: auto;
@@ -39,7 +38,6 @@ const ContentContainer = styled.div`
 
 const BioContainer = styled.div`
     width: 100%;
-    height: 100%;
     background-color: ${color.lightOpacity};
 `
 
@@ -92,6 +90,7 @@ export default function ConfigPage() {
     const onTabSelected = (index: any) => {
         setActive(index)
     };
+
     return <>
         <AccountContainer>
             <Avatar src="https://avatars.githubusercontent.com/u/100000000?v=4" />

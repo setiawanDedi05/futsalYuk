@@ -17,7 +17,7 @@ const BottomTabContainer = styled.div`
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    background-color: ${color.lightOpacity};
+    background-color: ${color.light};
     
     @media ${device.tablet} {
         width: 100px;
