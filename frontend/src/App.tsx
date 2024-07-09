@@ -5,6 +5,8 @@ import FeedPage from "./pages/secure/feed";
 import CustomeErrorBounderies from "./pages/public/error";
 import PlayPage from "./pages/secure/play";
 import ConfigPage from "./pages/secure/profile";
+import ChatPage from "./pages/secure/chat";
+import EditProfilePage from "./pages/secure/editProfile";
 
 const routers = createBrowserRouter([
   {
@@ -34,6 +36,16 @@ const routers = createBrowserRouter([
         id: "profile",
         path: "profile",
         element: <ConfigPage/>
+      },
+      {
+        id: "chat",
+        path: "chat/:id",
+        element: <ChatPage />
+      },
+      {
+        id: "edit-profile",
+        path: "edit-profile",
+        element: <EditProfilePage />
       }
     ]
   }

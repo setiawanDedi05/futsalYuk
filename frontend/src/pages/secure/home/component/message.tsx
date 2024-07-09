@@ -1,9 +1,10 @@
 import { faSearch, faUserPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import * as color  from "../../../../config/color";
+import * as color from "../../../../config/color";
 import styled from "styled-components"
 import { IPost } from "../../../../services/dto/post"
 import { device } from "../../../../config/constants";
+import { useNavigate } from "react-router-dom";
 
 const messagesDummy = [
     {
@@ -116,6 +117,11 @@ const MessageItem = styled.div`
     width: 100%;
     align-items: center;
     gap: 20px;
+    transition: all 5ms;
+    &:hover{
+        cursor: pointer;
+        background-color: ${color.gray};
+    }
 `
 
 const AuthorAvatar = styled.img`
@@ -140,6 +146,12 @@ const Caption = styled.span`
 `
 
 export default function MessageComponent() {
+    const navigate = useNavigate();
+
+    const onClickHandler = (id: number) => {
+        navigate('/secure/chat/' + id);
+    }
+
     return <MessageContainer>
         <MessageActionContainer>
             <MessageInputSearchContainer>
@@ -151,7 +163,7 @@ export default function MessageComponent() {
         <MessageContentContainer>
             {
                 messagesDummy.map(({ id, name, avatar }: IPost) => {
-                    return <MessageItem key={id}>
+                    return <MessageItem key={id} onClick={() => onClickHandler(id)}>
                         <AuthorAvatar src={avatar} alt={`${id}-avatar`} />
                         <AuthorNameContainer>
                             <AuthorName>{name}</AuthorName>

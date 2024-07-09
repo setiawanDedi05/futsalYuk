@@ -3,6 +3,10 @@ import * as color from '../../../config/color';
 import Tab, { TabItem } from "./components/tab";
 import { useState } from "react";
 import TabContent from "./components/tabContent";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const AccountContainer = styled.div`
     display: flex;
@@ -85,16 +89,65 @@ const DetailTag = styled.span`
     font-size: 0.5rem;
 `
 
+const ConfigButton = styled(motion.button)`
+    border: none;
+    padding: 8px;
+    background-color: transparent;
+    cursor: pointer;
+`
+
+const EditButton = styled(motion.button)`
+    border: none;
+    padding: 8px;
+    background-color: transparent;
+    cursor: pointer;
+`
+
+const TopContainer = styled.div`
+    display: flex;
+    align-items: start;
+`
+
 export default function ConfigPage() {
     const [active, setActive] = useState<number>(0)
     const onTabSelected = (index: any) => {
         setActive(index)
     };
+    const navigate = useNavigate()
+
+    const goToEditProfile = () => {
+        navigate('/secure/edit-profile')
+    }
 
     return <>
         <AccountContainer>
-            <Avatar src="https://avatars.githubusercontent.com/u/100000000?v=4" />
-            <AccountName>John Doe</AccountName>
+            <TopContainer>
+                <Avatar src="https://avatars.githubusercontent.com/u/100000000?v=4" />
+                <EditButton
+                    whileHover={{
+                        rotate: 30
+                    }}
+                    whileTap={{
+                        rotate: 30
+                    }}
+                >
+                    <FontAwesomeIcon icon={faPen} />
+                </EditButton>
+            </TopContainer>
+            <AccountName>John Doe
+                <ConfigButton
+                    whileHover={{
+                        rotate: 30
+                    }}
+                    whileTap={{
+                        rotate: 30
+                    }}
+                    transition={{ type: "spring" }}
+                    onClick={goToEditProfile}
+                    >
+                    <FontAwesomeIcon icon={faUserEdit} />
+                </ConfigButton>
+            </AccountName>
             <AccountEmail>john.doe@gmail.com</AccountEmail>
         </AccountContainer>
         <BioContainer>
