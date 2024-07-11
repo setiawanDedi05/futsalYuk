@@ -2,6 +2,9 @@ import styled from "styled-components";
 import * as color from "../../../config/color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
+import { faPenToSquare as faPen } from "@fortawesome/free-solid-svg-icons";
+import { easeInOut, motion } from "framer-motion";
+import { useState } from "react";
 
 const Form = styled.form`
     margin: 20px auto;
@@ -69,8 +72,10 @@ const ButtonEdit = styled.button`
 `
 
 const TopContainer = styled.div`
-    display: flex;
-    align-items: start;
+    border-radius: 50%;
+    width: 100px;
+    overflow: hidden;
+    height: 100px;
 `
 
 const AccountContainer = styled.div`
@@ -88,6 +93,22 @@ const Avatar = styled.img`
     object-fit: cover;
 `
 
+const ButtonContainer = styled(motion.div)`
+    position: relative;
+    bottom: 50px;
+    height: 50px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    background: linear-gradient(180deg, transparent 0%, ${color.lightOpacity} 30%, ${color.light} 100%);
+    display: flex;
+    justify-content: center;
+`
+
+const ButtonEditProfile = styled.button`
+    background-color: transparent;
+    border: none;
+`
+
 const AccountName = styled.span`
     font-size: 1.5rem;
 `
@@ -98,10 +119,39 @@ const AccountEmail = styled.span`
 `
 
 const EditProfilePage = () => {
+    const [image, setImage] = useState("https://avatars.githubusercontent.com/u/100000000?v=4");
+    const [down, setDown] = useState(false);
+    const transition = { easeInOut };
+    const variants = {
+        hide: { y: 300 },
+        show: { y: 0 }
+    }
+
+    const showButton = () => {
+        setDown(true)
+    }
+
+    const hideButton = () => {
+        setDown(false)
+    }
+
+    const goToEditPhotoProfile = () => {
+        document.getElementById("photo")?.click();
+    }
+
+    const onChangeHandler = (event: any) => {
+        if (event.target.files && event.target.files[0]) {
+            setImage(URL.createObjectURL(event.target.files[0]));
+        }
+    }
     return <>
-       <AccountContainer>
-            <TopContainer>
-                <Avatar src="https://avatars.githubusercontent.com/u/100000000?v=4" />
+        <AccountContainer>
+            <TopContainer onMouseEnter={showButton} onMouseLeave={hideButton} >
+                <Avatar id="avatar" src={image} />
+                <input type="file" name="photo" accept="image/*" onChange={onChangeHandler} id="photo" hidden />
+                <ButtonContainer initial="hide" animate={!down ? "hide" : "show"} variants={variants} transition={transition}>
+                    <ButtonEditProfile onClick={goToEditPhotoProfile}><FontAwesomeIcon icon={faPen} /></ButtonEditProfile>
+                </ButtonContainer>
             </TopContainer>
             <AccountName>John Doe</AccountName>
             <AccountEmail>john.doe@gmail.com</AccountEmail>

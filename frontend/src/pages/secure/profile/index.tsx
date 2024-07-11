@@ -4,7 +4,7 @@ import Tab, { TabItem } from "./components/tab";
 import { useState } from "react";
 import TabContent from "./components/tabContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -96,18 +96,6 @@ const ConfigButton = styled(motion.button)`
     cursor: pointer;
 `
 
-const EditButton = styled(motion.button)`
-    border: none;
-    padding: 8px;
-    background-color: transparent;
-    cursor: pointer;
-`
-
-const TopContainer = styled.div`
-    display: flex;
-    align-items: start;
-`
-
 export default function ConfigPage() {
     const [active, setActive] = useState<number>(0)
     const onTabSelected = (index: any) => {
@@ -121,19 +109,7 @@ export default function ConfigPage() {
 
     return <>
         <AccountContainer>
-            <TopContainer>
-                <Avatar src="https://avatars.githubusercontent.com/u/100000000?v=4" />
-                <EditButton
-                    whileHover={{
-                        rotate: 30
-                    }}
-                    whileTap={{
-                        rotate: 30
-                    }}
-                >
-                    <FontAwesomeIcon icon={faPen} />
-                </EditButton>
-            </TopContainer>
+            <Avatar src="https://avatars.githubusercontent.com/u/100000000?v=4" />
             <AccountName>John Doe
                 <ConfigButton
                     whileHover={{
@@ -144,7 +120,7 @@ export default function ConfigPage() {
                     }}
                     transition={{ type: "spring" }}
                     onClick={goToEditProfile}
-                    >
+                >
                     <FontAwesomeIcon icon={faUserEdit} />
                 </ConfigButton>
             </AccountName>
