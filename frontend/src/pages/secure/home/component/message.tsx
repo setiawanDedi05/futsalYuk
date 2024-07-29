@@ -1,4 +1,4 @@
-import { faSearch, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import * as color from "../../../../config/color";
 import styled from "styled-components"
@@ -84,18 +84,24 @@ const MessageActionContainer = styled.div`
 
 const MessageInputSearchContainer = styled.form`
     display: flex;
-    border-radius: 2px;
+    border-radius: 8px;
     padding: 8px 16px;
-    background-color: ${color.white};
-    width: 200px;
-    border: 2px solid;
+    background-color: ${color.light};
+    width: 80%;
     gap: 20px;
     align-items: center;
+    box-shadow: 5px 5px 2px ${color.gray};
+    &:hover{
+        box-shadow: none;
+        transform: translateY(4px);
+        border: 1px dashed ${color.green};
+        cursor: pointer;
+    }
 `
 
 const MessageInputSearch = styled.input`
     width: 130px;
-    background-color: ${color.white};
+    background-color: ${color.light};
     border: none;
     outline: none;
     font-size: 1rem;
@@ -113,7 +119,7 @@ const MessageContentContainer = styled.div`
 
 const MessageItem = styled.div`
     display: flex;
-    padding: 30px 20px;
+    padding: 10px 20px;
     width: 100%;
     align-items: center;
     gap: 20px;
@@ -158,7 +164,6 @@ export default function MessageComponent() {
                 <FontAwesomeIcon icon={faSearch} size="xl" />
                 <MessageInputSearch />
             </MessageInputSearchContainer>
-            <FontAwesomeIcon icon={faUserPlus} size="xl" />
         </MessageActionContainer>
         <MessageContentContainer>
             {
