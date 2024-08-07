@@ -10,7 +10,8 @@ describe("testing service", () => {
     let rpcResultTrue;
     let rpcresultFailed = {
         result: {
-            success: false
+            success: false,
+            errorCode: 500
         }
     }
 
