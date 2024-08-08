@@ -19,6 +19,7 @@ router.post('/login', createProxyMiddleware({
             proxyRes.on('data', (chunk) => {
                 body += chunk;
                 const authResponse = JSON.parse(body);
+                console.log({authResponse})
                 if (authResponse.success) {
                     res.setHeader('Authorization', `Bearer ${authResponse.token}`);
                     res.status(200).json(authResponse);

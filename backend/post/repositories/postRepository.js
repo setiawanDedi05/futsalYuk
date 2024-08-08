@@ -10,8 +10,7 @@ class PostRepository {
     }
 
     async create(post){
-        const newPost = new Post(post);
-        return await newPost.save();
+        return await post.save();
     }
 
     async update(id, post){

@@ -9,8 +9,8 @@ class PostService {
         return await postRepository.findById(id);
     }
 
-    async create(create){
-        return await postRepository.create(create);
+    async create(post){
+        return await postRepository.create(post);
     }
 
     async updatePostById(id, post){
