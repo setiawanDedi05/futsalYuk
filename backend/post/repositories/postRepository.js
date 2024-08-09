@@ -1,12 +1,16 @@
 const { Post } = require("../models/postModel");
 
 class PostRepository {
+    constructor(db) {
+        this.db = db;
+    }
+
     async findAll(){
-        return await Post.find();
+        return await this.db.find();
     }
 
     async findById(id){
-        return await Post.findById(id);
+        return await this.db.findById(id);
     }
 
     async create(post){
@@ -14,15 +18,15 @@ class PostRepository {
     }
 
     async update(id, post){
-        return await Post.findByIdAndUpdate(id, post, {
+        return await this.db.findByIdAndUpdate(id, post, {
             returnOriginal: false,
             runValidators: true
         })
     }
 
     async destroy(id){
-        return await Post.findByIdAndDelete(id)
+        return await this.db.findByIdAndDelete(id)
     }
 }
 
-module.exports = new PostRepository();
+module.exports = PostRepository;

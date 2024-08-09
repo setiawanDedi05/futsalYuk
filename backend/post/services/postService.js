@@ -1,25 +1,34 @@
-const postRepository = require("../repositories/postRepository")
-
 class PostService {
-    async getAllPost(){
-        return await postRepository.findAll();
-    }
+  constructor(postRepository) {
+    this.postRepository = postRepository;
+  }
 
-    async getPostById(id){
-        return await postRepository.findById(id);
-    }
+  async getAllPost() {
+    return await this.postRepository.findAll();
+  }
 
-    async create(post){
-        return await postRepository.create(post);
+  async likePostById(postId, userId) {
+    const findedPost = await this.postRepository.findById(postId);
+    const likeIndex = findedPost.likes.indexOf(userId);
+    if (likeIndex === -1) {
+      findedPost.likes.push(userId);
+    } else {
+      findedPost.likes.splice(likeIndex, 1);
     }
+    return findedPost.save();
+  }
 
-    async updatePostById(id, post){
-        return await postRepository.update(id, post);
-    }
+  async create(post) {
+    return await this.postRepository.create(post);
+  }
 
-    async deletePostById(id){
-        return await postRepository.destroy(id);
-    }
+  async updatePostById(id, post) {
+    return await this.postRepository.update(id, post);
+  }
+
+  async deletePostById(id) {
+    return await this.postRepository.destroy(id);
+  }
 }
 
-module.exports = new PostService()
+module.exports = PostService;
