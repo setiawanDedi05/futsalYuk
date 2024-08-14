@@ -52,7 +52,10 @@ class AuthController {
     const { email, password } = req.body;
     const user = await authService.getUserByEmail(email)
     if (user && checkPassword(password, user.password)) {
-      res.json({ success: true });
+      const token = generateToken(user, process.env.SECRET_KEY, {
+        expiresIn: "1h"
+      });
+      res.json({ success: true, token });
     } else {
       res.json({ success: false, message: 'email/password not match' });
     }
