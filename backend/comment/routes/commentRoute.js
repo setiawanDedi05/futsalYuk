@@ -10,5 +10,6 @@ const commentService = new CommentService(commentRepository);
 const commentController = new CommentController(commentService);
 
 router.post("/", (req, res, next) => commentController.createComment(req, res, next));
+router.delete("/", (req, res, next) => commentController.deleteComment(req, res, next));
 
 module.exports = router;
