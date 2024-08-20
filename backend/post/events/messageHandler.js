@@ -5,14 +5,7 @@ const handleMessage = async (msg) => {
   const newComment = JSON.parse(msg.content.toString());
 
   try {
-    const findedPost = await Post.findByIdAndUpdate(
-      newComment.postId,
-      {
-        $push: { comments: newComment.commentId },
-      },
-      { new: true }
-    );
-
+    const findedPost = factoryUpdate(newComment);
     if (findedPost) {
       console.log("post updated");
     } else {
@@ -30,7 +23,7 @@ const startMessageHandler = () => {
     connection.createChannel((error1, channel) => {
       if (error1) throw error1;
 
-      const queue = "create_comment";
+      const queue = "comment";
       channel.assertQueue(queue, { durable: false });
 
       channel.consume(
@@ -45,5 +38,27 @@ const startMessageHandler = () => {
     });
   });
 };
+
+const factoryUpdate = async (msg) => {
+  switch (msg.type) {
+    case 'create':
+      return await Post.findByIdAndUpdate(
+        msg.postId,
+        {
+          $push: { comments: msg.commentId },
+        },
+        { new: true }
+      );
+    case 'delete': 
+      return await Post.findByIdAndUpdate(
+        msg.postId,
+        {
+          $pull: { comments: msg.commentId },
+        }
+      );
+    default:
+      break;
+  }
+}
 
 module.exports = { startMessageHandler };
