@@ -14,10 +14,11 @@ class CommentService {
         connection.createChannel((error1, channel) => {
           if (error1) throw error1;
 
-          const queue = "create_comment";
+          const queue = "comment";
           const msg = JSON.stringify({
             postId: comment.postId,
             commentId: response._id,
+            type: 'create'
           });
 
           channel.assertQueue(queue, { durable: false });
@@ -35,16 +36,22 @@ class CommentService {
   async delete(commentId) {
     try {
       const response = await this.commentRepository.delete(commentId);
+      if(!response) {
+        const error = new Error("Not Found");
+        error.name = "NotFound";
+        throw error
+      }
       amqp.connect(process.env.rabbit_MR_URL, (error0, connection) => {
         if (error0) throw error0;
 
         connection.createChannel((error1, channel) => {
           if (error1) throw error1;
 
-          const queue = 'delete_comment';
+          const queue = 'comment';
           const msg = JSON.stringify({
             postId: response.postId,
-            commentId
+            commentId,
+            type: 'delete'
           });
 
           channel.assertQueue(queue, {durable: false});
