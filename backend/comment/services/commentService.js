@@ -1,4 +1,5 @@
 const amqp = require("amqplib/callback_api");
+const { publishCommentCreated, publishCommentDeleted } = require("../rabbitMq/setupRabbitMq");
 
 class CommentService {
   constructor(commentRepository) {
@@ -8,25 +9,14 @@ class CommentService {
   async create(comment) {
     try {
       const response = await this.commentRepository.create(comment);
-      amqp.connect(process.env.rabbit_MR_URL, (error0, connection) => {
-        if (error0) throw error0;
-
-        connection.createChannel((error1, channel) => {
-          if (error1) throw error1;
-
-          const queue = "comment";
-          const msg = JSON.stringify({
-            postId: comment.postId,
-            commentId: response._id,
-            type: 'create'
-          });
-
-          channel.assertQueue(queue, { durable: false });
-          channel.sendToQueue(queue, Buffer.from(msg));
-
-          console.log("[x] Sent %s", msg);
-        });
+      const newComment = JSON.stringify({
+        postId: comment.postId,
+        commentId: response._id,
+        type: "create",
       });
+
+      publishCommentCreated(newComment);
+      
       return response;
     } catch (error) {
       throw error;
@@ -36,30 +26,20 @@ class CommentService {
   async delete(commentId) {
     try {
       const response = await this.commentRepository.delete(commentId);
-      if(!response) {
+      if (!response) {
         const error = new Error("Not Found");
         error.name = "NotFound";
-        throw error
+        throw error;
       }
-      amqp.connect(process.env.rabbit_MR_URL, (error0, connection) => {
-        if (error0) throw error0;
 
-        connection.createChannel((error1, channel) => {
-          if (error1) throw error1;
-
-          const queue = 'comment';
-          const msg = JSON.stringify({
-            postId: response.postId,
-            commentId,
-            type: 'delete'
-          });
-
-          channel.assertQueue(queue, {durable: false});
-          channel.sendToQueue(queue, Buffer.from(msg));
-
-          console.log("[x] message delete sent %s", msg);
-        });
+      const deletedComment = JSON.stringify({
+        postId: response.postId,
+        commentId,
+        type: "delete",
       });
+
+      publishCommentDeleted(deletedComment)
+
       return response;
     } catch (error) {
       throw error;

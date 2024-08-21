@@ -9,6 +9,7 @@ const PORT = process.env.APP_PORT;
 const expressWinston = require('express-winston')
 const { transports, format } = require('winston');
 const logger = require('./utils/logger');
+const setupRabbitMq = require('./rabbitMq/setupRabbitMq');
 
 const myFormat = format.printf(({ level, meta, timestamp }) => {
     return `${timestamp} ${level}: ${meta.message}`
@@ -23,9 +24,11 @@ app.use(expressWinston.logger({
     winstonInstance: logger,
     statusLevels: true
 }))
+
+setupRabbitMq();
+
 app.disable("x-powered-by"); // Hide Express server information
-// // Apply the rate limit and timeout middleware to the proxy
-app.use(rateLimitAndTimeout);
+app.use(rateLimitAndTimeout); // Apply the rate limit and timeout middleware to the proxy
 
 app.use("/", routers)
 // Start Express server
