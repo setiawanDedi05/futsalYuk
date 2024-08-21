@@ -1,15 +1,21 @@
-const express = require("express")
+const express = require("express");
 const postRouter = require("./routes/postRoute");
 const errorHandlerMiddleware = require("./middleware/ErrorHandler");
-const { startMessageHandler } = require("./events/messageHandler");
-const app = express()
+
+const {
+  consumeCommentCreated,
+  consumeCommentDeleted,
+} = require("./rabbitMq/setupRabbitMq");
+const app = express();
 
 app.use(express.json());
 
-app.use("/", postRouter); 
+app.use("/", postRouter);
 
-startMessageHandler();
+consumeCommentCreated();
+consumeCommentDeleted();
 
-app.use(errorHandlerMiddleware)
+app.use(errorHandlerMiddleware);
 
-module.exports = app
+module.exports = app;
+
