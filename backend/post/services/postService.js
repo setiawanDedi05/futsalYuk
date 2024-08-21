@@ -26,6 +26,19 @@ class PostService {
     return await this.postRepository.update(id, post);
   }
 
+  async pushCommentInPost(postId, commentId) {
+    const response = await this.postRepository.pushCommentInPost(
+      postId,
+      commentId
+    );
+    console.log({ response });
+    return response;
+  }
+
+  async popCommentInPost(postId, commentId) {
+    return await this.postRepository.popCommentInPost(postId, commentId);
+  }
+
   async deletePostById(id) {
     return await this.postRepository.destroy(id);
   }
